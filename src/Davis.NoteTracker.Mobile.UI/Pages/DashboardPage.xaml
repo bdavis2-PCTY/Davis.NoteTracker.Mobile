@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage
+    x:Class="Davis.NoteTracker.Mobile.UI.Pages.DashboardPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Davis.NoteTracker.Mobile.UI.Pages"
+    xmlns:mvx="clr-namespace:MvvmCross.Forms.Bindings;assembly=MvvmCross.Forms"
+    xmlns:viewModels="clr-namespace:Davis.NoteTracker.Mobile.Core.ViewModels;assembly=Davis.NoteTracker.Mobile.Core"
+    xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+    Title="Dashboard"
+    x:TypeArguments="viewModels:DashboardViewModel">
+
+    <views:MvxContentPage.Padding Thickness="5, 0, 5, 95">
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="Android" Value="5, 0, 5, 0" />
+            <On Platform="iOS" Value="5, 20, 5, 0" />
+        </OnPlatform>
+    </views:MvxContentPage.Padding>
+
+
+    <views:MvxContentPage.ToolbarItems>
+        <ToolbarItem Name="Menu1" Text="Add Note" ClassId="About" Order="Primary" Command="{Binding AddNoteCommand}" />
+    </views:MvxContentPage.ToolbarItems>
+
+    <StackLayout Spacing="10" Orientation="Vertical">
+        <Label FontSize="24" 
+               Text="This is your dashboard" 
+               HorizontalOptions="FillAndExpand" 
+               HorizontalTextAlignment="Center" 
+               VerticalOptions="Start"
+               TextColor="Black"
+               Margin="0, 20, 0, 20"/>
+
+        <Label HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand"
+               Text="Looks like you don't have any notes 😔"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               IsVisible="{Binding IsNoNoteLabelVisible}" />
+
+        <views:MvxListView
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                ItemsSource="{Binding Items}">
+            <views:MvxListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="0,5,5,0" HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                            <Label Text="{Binding .}" VerticalTextAlignment="Center" FontSize="Small" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </views:MvxListView.ItemTemplate>
+        </views:MvxListView>
+    </StackLayout>
+
+</views:MvxContentPage>
